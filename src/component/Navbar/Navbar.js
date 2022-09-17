@@ -25,7 +25,7 @@ const Navbar = () => {
                     <option>xl</option>
                     <option>xll</option>
                 </select>
-                <p className='reset'>reset <IoRefresh className='icon'/></p>
+                <p className='reset'><IoRefresh/> Reset</p>
             </div>
             <div className='search'>
                 <div className="search-products">

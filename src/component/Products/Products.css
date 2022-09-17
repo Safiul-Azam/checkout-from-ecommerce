@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid;
+    background: rgb(238, 238, 238);
+}
+.check-cart{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.check-cart input {
+    width: 25px;
+    padding: 4px 0px 4px 18px;
+}
+.cart{
+    padding: 5px 16px;
+    background-color: #222;
+    color: white;
+}
