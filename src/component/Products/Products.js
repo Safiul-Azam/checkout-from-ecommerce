@@ -2,8 +2,8 @@ import React from 'react';
 
 const Products = () => {
     return (
-        <div>
-            <p>product</p>
+        <div className="overflow-x-auto">
+          
         </div>
     );
 };

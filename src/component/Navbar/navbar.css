@@ -1,0 +1,33 @@
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0;
+}
+.search,.select-item {
+    display: flex;
+    align-items: center;
+}
+.select-item select,option,input{
+    padding: 6px 10px;
+    border:1px solid gray;
+    margin-right: 10px;
+    font-size: 16px;
+    color:gray;
+}
+button{
+    padding: 12px;
+    background-color:deepskyblue;
+    color:white;
+    border:none;
+}
+.reset{
+    display: flex;
+    align-items: center;
+    color: deepskyblue;
+    font-size: 18px;
+}
+.icon{
+    color: deepskyblue;
+    margin-left: 3px;
+}
