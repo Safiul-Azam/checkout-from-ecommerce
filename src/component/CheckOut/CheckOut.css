@@ -1,0 +1,16 @@
+.cart-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.check-out-container{
+    display: flex;
+    justify-content: space-around;
+}
+.checkout-cart{
+    border:1px solid gray;
+    padding: 20px;
+    height: 300px;
+    width: 25%;
+    margin:  0 20px;
+}

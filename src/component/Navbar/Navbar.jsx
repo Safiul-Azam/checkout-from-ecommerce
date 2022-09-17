@@ -4,7 +4,7 @@ import { IoRefresh } from 'react-icons/io5'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Products from '../Products/Products';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [size, setSize] = useState(undefined)
@@ -19,7 +19,10 @@ const Navbar = () => {
     const handleReset = (e) => {
         e.preventDefault()
         setSize('size')
-        
+    }
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate('/checkout', { state: { products }})
     }
     return (
         <div>
@@ -49,7 +52,7 @@ const Navbar = () => {
                         </label>
                         <input type="text" placeholder="Search" className="" />
                     </div>
-                    <Link to='/selectedProducts'>Add To Cart</Link>
+                    <button onClick={handleClick}>Add To Cart</button>
                 </div>
             </nav>
             <div className="product-container">
@@ -69,7 +72,7 @@ const Navbar = () => {
                     </thead>
                     <tbody>
                         {
-                            <Products products={productsBySize.length > 0? productsBySize: products }></Products>
+                            <Products products={productsBySize.length > 0 ? productsBySize : products}></Products>
                         }
                     </tbody>
                 </table>

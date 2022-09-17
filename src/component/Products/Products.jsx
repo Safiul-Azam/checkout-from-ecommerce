@@ -6,8 +6,6 @@ import { useState } from 'react';
 const Products = ({ products, productsData }) => {
     const [count, setCount] = useState(0)
     const [selected, setSelected] = useState([])
-    console.log(count);
-    console.log(productsData);
 
     const handleSelect= (e)=>{
 
@@ -15,7 +13,6 @@ const Products = ({ products, productsData }) => {
         const value = e.target.value
         setSelected(checked ? [...selected, value] : selected.filter(item => item !== value))
     }
-    console.log(selected);
     return (
         <>
             {
@@ -34,7 +31,7 @@ const Products = ({ products, productsData }) => {
                         <div className='check-cart'>
                             <input onChange={e => setCount(e.target.value)} type="number" name="" id="" />
                             <AiOutlineShoppingCart className='cart' />
-                            <input onChange={handleSelect} disabled={count <= 0} type="checkbox"/>
+                            <input onChange={handleSelect} value={count} disabled={count <= 0} type="checkbox"/>
                         </div>
                     </td>
                 </tr>) 
