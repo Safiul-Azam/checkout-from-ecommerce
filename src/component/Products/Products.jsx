@@ -1,10 +1,21 @@
 import React from 'react';
 import './Products.css'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import { useState } from 'react';
 
 const Products = ({ products, productsData }) => {
-    console.log(products);
+    const [count, setCount] = useState(0)
+    const [selected, setSelected] = useState([])
+    console.log(count);
     console.log(productsData);
+
+    const handleSelect= (e)=>{
+
+        const checked = e.target.checked
+        const value = e.target.value
+        setSelected(checked ? [...selected, value] : selected.filter(item => item !== value))
+    }
+    console.log(selected);
     return (
         <>
             {
@@ -21,9 +32,9 @@ const Products = ({ products, productsData }) => {
                     <td>{product.price}</td>
                     <td>
                         <div className='check-cart'>
-                            <input type="number" name="" id="" />
+                            <input onChange={e => setCount(e.target.value)} type="number" name="" id="" />
                             <AiOutlineShoppingCart className='cart' />
-                            <input type="checkbox" name="" id="" />
+                            <input onChange={handleSelect} disabled={count <= 0} type="checkbox"/>
                         </div>
                     </td>
                 </tr>) 

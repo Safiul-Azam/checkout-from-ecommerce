@@ -4,6 +4,7 @@ import { IoRefresh } from 'react-icons/io5'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Products from '../Products/Products';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [size, setSize] = useState(undefined)
@@ -15,8 +16,10 @@ const Navbar = () => {
             .then(data => setProducts(data))
     }, [])
     const productsBySize = products.filter(product => product.size === size && product.category === category)
-    const handleChange = () => {
-
+    const handleReset = (e) => {
+        e.preventDefault()
+        setSize('size')
+        
     }
     return (
         <div>
@@ -37,7 +40,7 @@ const Navbar = () => {
                         <option>XL</option>
                         <option>2XL</option>
                     </select>
-                    <p className='reset'><IoRefresh /> Reset</p>
+                    <button onClick={handleReset} className='reset'><IoRefresh /> Reset</button>
                 </div>
                 <div className='search'>
                     <div className="search-products">
@@ -46,7 +49,7 @@ const Navbar = () => {
                         </label>
                         <input type="text" placeholder="Search" className="" />
                     </div>
-                    <button>Add To Cart</button>
+                    <Link to='/selectedProducts'>Add To Cart</Link>
                 </div>
             </nav>
             <div className="product-container">
