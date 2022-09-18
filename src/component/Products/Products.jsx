@@ -5,9 +5,7 @@ import { useState } from 'react';
 import CheckOut from '../CheckOut/CheckOut';
 import { useNavigate } from 'react-router-dom';
 
-const Products = ({ products,handleSelect}) => {
-    const [count, setCount] = useState(0);
-
+const Products = ({ products,handleSelect,handleCount}) => {
     return (
         <>
             {
@@ -20,11 +18,10 @@ const Products = ({ products,handleSelect}) => {
                     <td>{product.stock}</td>
                     <td>{product.category}</td>
                     <td>{product.size}</td>
-                    <td>{count || product.quantity}</td>
                     <td>{product.price}</td>
                     <td>
                         <div className='check-cart'>
-                            <input onChange={e => setCount(e.target.value)} type="number" name="" id="" />
+                            <input onChange={handleCount} type="number" name="" id="" />
                             <AiOutlineShoppingCart className='cart' />
                             <input onChange={handleSelect} value={product.id} type="checkbox" />
                         </div>

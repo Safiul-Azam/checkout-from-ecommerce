@@ -7,8 +7,10 @@ const CheckOut = () => {
     console.log(location);
     const [products, setProducts] = useState(location.state.products)
     const [selected, setSelected] = useState(location.state.selected)
-
-    const productsBySelected = products.filter(product => product.id === selected[0])
+    const selectedId = selected.map(item => item.id)
+    const selectedCount = selected.map(item => item.count)
+    console.log(selectedCount);
+    const productsBySelected = products.filter(product => selectedId.includes(product.id) )
     console.log(productsBySelected);
     return (
         <div className='home-container check-out-container'>
@@ -24,7 +26,7 @@ const CheckOut = () => {
                     </thead>
                     <tbody>
                         {
-                            products?.map(product => <tr>
+                            productsBySelected?.map(product => <tr>
                                 <td>
                                     <img width={70} src={product.img} alt="" />
                                 </td>
@@ -33,14 +35,14 @@ const CheckOut = () => {
                                 <td>
                                     <div className="">
                                         <button
-                                            disabled={product.quantity <= 1}
+                                            disabled={selected.count <= 1}
                                             className=""
                                             // onClick={() => handleOption("adult", "d")}
                                         >
                                             <FaMinus></FaMinus>
                                         </button>
                                         <span className="">
-                                            {product.quantity}
+                                            {selectedCount}
                                         </span>
                                         <button
                                             className=""

@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Navbar = () => {
     const [size, setSize] = useState(undefined)
     const [category, setCategory] = useState(undefined)
+    const [count, setCount] = useState(0);
     const [products, setProducts] = useState([])
     useEffect(() => {
         fetch(`/products.json`)
@@ -25,15 +26,19 @@ const Navbar = () => {
     const [selected, setSelected] = useState([])
 
     const handleSelect = (e) => {
-
         const checked = e.target.checked
         const value = e.target.value
-        setSelected(checked ? [...selected, value] : selected.filter(item => item !== value))
+        setSelected(checked ? [...selected, {id:value, count:count}] : selected.filter(item => item !== value))
+    }
+    const handleCount = (e)=>{
+        const c = e.target.value
+        setCount(c)
     }
     const handleClick = () => {
         navigate('/checkout', { state: { products, selected } })
     }
     console.log(selected)
+    console.log(count);
     return (
         <div>
             <nav className='nav-container'>
@@ -75,14 +80,13 @@ const Navbar = () => {
                             <th>Stock</th>
                             <th>Category</th>
                             <th>Size</th>
-                            <th>Quantity</th>
                             <th>Price</th>
                             <th style={{ textAlign: 'right', paddingRight: '15px' }}>Buy</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect}></Products>
+                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect} handleCount={handleCount}></Products>
                         }
                     </tbody>
                 </table>
