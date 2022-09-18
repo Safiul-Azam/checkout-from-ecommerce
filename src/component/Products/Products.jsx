@@ -1,11 +1,8 @@
 import React from 'react';
 import './Products.css'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { useState } from 'react';
-import CheckOut from '../CheckOut/CheckOut';
-import { useNavigate } from 'react-router-dom';
 
-const Products = ({ products,handleSelect,handleCount}) => {
+const Products = ({ products,handleSelect}) => {
     return (
         <>
             {
@@ -21,7 +18,7 @@ const Products = ({ products,handleSelect,handleCount}) => {
                     <td>{product.price}</td>
                     <td>
                         <div className='check-cart'>
-                            <input onChange={handleCount} type="number" name="" id="" />
+                            <input type="number" name="" id="" />
                             <AiOutlineShoppingCart className='cart' />
                             <input onChange={handleSelect} value={product.id} type="checkbox" />
                         </div>

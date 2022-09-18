@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './CheckOut.css'
-import {FaMinus, FaPlus}  from 'react-icons/fa'
+import { FaMinus, FaPlus } from 'react-icons/fa'
 const CheckOut = () => {
     const location = useLocation()
     console.log(location);
     const [products, setProducts] = useState(location.state.products)
     const [selected, setSelected] = useState(location.state.selected)
-    const selectedId = selected.map(item => item.id)
-    const selectedCount = selected.map(item => item.count)
-    console.log(selectedCount);
-    const productsBySelected = products.filter(product => selectedId.includes(product.id) )
+    const productsBySelected = products.filter(product => selected(product.id))
     console.log(productsBySelected);
     return (
         <div className='home-container check-out-container'>
@@ -37,16 +34,15 @@ const CheckOut = () => {
                                         <button
                                             disabled={selected.count <= 1}
                                             className=""
-                                            // onClick={() => handleOption("adult", "d")}
+                                        // onClick={() => handleOption("adult", "d")}
                                         >
                                             <FaMinus></FaMinus>
                                         </button>
-                                        <span className="">
-                                            {selectedCount}
-                                        </span>
+                                        <span className=""></span>
+
                                         <button
                                             className=""
-                                            // onClick={() => handleOption("adult", "i")}
+                                        // onClick={() => handleOption("adult", "i")}
                                         >
                                             <FaPlus></FaPlus>
                                         </button>

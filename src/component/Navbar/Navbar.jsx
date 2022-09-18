@@ -4,12 +4,11 @@ import { IoRefresh } from 'react-icons/io5'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Products from '../Products/Products';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [size, setSize] = useState(undefined)
     const [category, setCategory] = useState(undefined)
-    const [count, setCount] = useState(0);
     const [products, setProducts] = useState([])
     useEffect(() => {
         fetch(`/products.json`)
@@ -28,17 +27,12 @@ const Navbar = () => {
     const handleSelect = (e) => {
         const checked = e.target.checked
         const value = e.target.value
-        setSelected(checked ? [...selected, {id:value, count:count}] : selected.filter(item => item !== value))
-    }
-    const handleCount = (e)=>{
-        const c = e.target.value
-        setCount(c)
+        setSelected(checked ? [...selected, value] : selected.filter(item => item !== value))
     }
     const handleClick = () => {
         navigate('/checkout', { state: { products, selected } })
     }
     console.log(selected)
-    console.log(count);
     return (
         <div>
             <nav className='nav-container'>
@@ -86,7 +80,7 @@ const Navbar = () => {
                     </thead>
                     <tbody>
                         {
-                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect} handleCount={handleCount}></Products>
+                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect}></Products>
                         }
                     </tbody>
                 </table>
