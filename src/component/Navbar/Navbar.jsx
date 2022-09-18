@@ -21,9 +21,19 @@ const Navbar = () => {
         setSize('size')
     }
     const navigate = useNavigate()
-    const handleClick = () => {
-        navigate('/checkout', { state: { products }})
+   
+    const [selected, setSelected] = useState([])
+
+    const handleSelect = (e) => {
+
+        const checked = e.target.checked
+        const value = e.target.value
+        setSelected(checked ? [...selected, value] : selected.filter(item => item !== value))
     }
+    const handleClick = () => {
+        navigate('/checkout', { state: { products, selected } })
+    }
+    console.log(selected)
     return (
         <div>
             <nav className='nav-container'>
@@ -72,7 +82,7 @@ const Navbar = () => {
                     </thead>
                     <tbody>
                         {
-                            <Products products={productsBySize.length > 0 ? productsBySize : products}></Products>
+                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect}></Products>
                         }
                     </tbody>
                 </table>

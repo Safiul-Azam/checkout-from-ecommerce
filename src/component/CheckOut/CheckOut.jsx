@@ -4,9 +4,12 @@ import './CheckOut.css'
 import {FaMinus, FaPlus}  from 'react-icons/fa'
 const CheckOut = () => {
     const location = useLocation()
-    const [products, setProducts] = useState(location.state.products)
     console.log(location);
+    const [products, setProducts] = useState(location.state.products)
+    const [selected, setSelected] = useState(location.state.selected)
 
+    const productsBySelected = products.filter(product => product.id === selected[0])
+    console.log(productsBySelected);
     return (
         <div className='home-container check-out-container'>
             <div className="product-container">
