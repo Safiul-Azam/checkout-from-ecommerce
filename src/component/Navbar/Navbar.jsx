@@ -48,16 +48,12 @@ const Navbar = () => {
                         <option>- category</option>
                         <option>Bag</option>
                         <option>Cap</option>
-                        <option>watch</option>
-                        <option>glass</option>
                     </select>
                     <select onChange={e => setSize(e.target.value)} id="adult">
                         <option>Size</option>
-                        <option>S</option>
                         <option>M</option>
                         <option>L</option>
                         <option>XL</option>
-                        <option>2XL</option>
                     </select>
                     <button onClick={handleReset} className='reset'><IoRefresh /> Reset</button>
                 </div>
@@ -68,8 +64,8 @@ const Navbar = () => {
                         </label>
                         <input type="text" placeholder="Search" className="" />
                     </div>
-                    <button onClick={handleClick}>Add To Cart</button>
-                    <span>{cartItems.length > 0 && <p>{cartItems.length}</p>}</span>
+                    <button disabled={cartItems.length <= 0} onClick={handleClick}>Add To Cart</button>
+                    
                 </div>
             </nav>
             {<Products products={productsBySize.length > 0 ? productsBySize: products } ></Products>}
