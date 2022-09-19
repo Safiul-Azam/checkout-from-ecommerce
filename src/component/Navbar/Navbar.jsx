@@ -10,6 +10,7 @@ const Navbar = () => {
     const [size, setSize] = useState(undefined)
     const [category, setCategory] = useState(undefined)
     const [products, setProducts] = useState([])
+    const [quantity, setQuantity] = useState([])
     useEffect(() => {
         fetch(`/products.json`)
             .then(res => res.json())
@@ -20,6 +21,12 @@ const Navbar = () => {
         e.preventDefault()
         setSize('size')
     }
+
+    // const handleQuantity =(e)=>{
+    //     setQuantity(e.target.value)
+    // }
+
+    console.log(quantity);
     const navigate = useNavigate()
    
     const [selected, setSelected] = useState([])
@@ -27,12 +34,12 @@ const Navbar = () => {
     const handleSelect = (e) => {
         const checked = e.target.checked
         const value = e.target.value
-        setSelected(checked ? [...selected, value] : selected.filter(item => item !== value))
+        setSelected(checked ? [...selected, {value, quantity}] : selected.filter(item => item !== value))
     }
     const handleClick = () => {
         navigate('/checkout', { state: { products, selected } })
     }
-    console.log(selected)
+    // console.log(selected)
     return (
         <div>
             <nav className='nav-container'>
@@ -80,7 +87,7 @@ const Navbar = () => {
                     </thead>
                     <tbody>
                         {
-                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect}></Products>
+                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect} setQuantity={setQuantity} quantity={quantity}></Products>
                         }
                     </tbody>
                 </table>

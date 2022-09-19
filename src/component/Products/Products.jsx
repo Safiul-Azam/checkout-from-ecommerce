@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Products.css'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 
-const Products = ({ products,handleSelect}) => {
+const Products = ({ products,handleSelect,setQuantity,quantity}) => {
+    const handleQuantity = (e) => {
+        // [...quantity,{quantity:e.target.value, id:product.id}]
+    const incQuantity = quantity.find((item) => item.id === e.id)
+    console.log(incQuantity);
+    console.log(e);
+}
+console.log(quantity);
+    
     return (
         <>
             {
@@ -18,7 +26,7 @@ const Products = ({ products,handleSelect}) => {
                     <td>{product.price}</td>
                     <td>
                         <div className='check-cart'>
-                            <input type="number" name="" id="" />
+                            <input onChange={(e)=>handleQuantity({value:e.target.value,id:product.id})} type="number" name="" id="" />
                             <AiOutlineShoppingCart className='cart' />
                             <input onChange={handleSelect} value={product.id} type="checkbox" />
                         </div>

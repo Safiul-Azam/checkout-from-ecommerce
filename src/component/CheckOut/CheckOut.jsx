@@ -4,11 +4,21 @@ import './CheckOut.css'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 const CheckOut = () => {
     const location = useLocation()
-    console.log(location);
     const [products, setProducts] = useState(location.state.products)
     const [selected, setSelected] = useState(location.state.selected)
-    const productsBySelected = products.filter(product => selected(product.id))
-    console.log(productsBySelected);
+    const productsBySelected = products.filter(product => selected.includes(product.id))
+    const [options, setOptions] = useState({
+        quantity:1,
+    });
+    const handleOption = (name, operation) => {
+        setOptions((prev) => {
+            return {
+                ...prev,
+                [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
+            };
+        });
+    };
+
     return (
         <div className='home-container check-out-container'>
             <div className="product-container">
@@ -32,17 +42,17 @@ const CheckOut = () => {
                                 <td>
                                     <div className="">
                                         <button
-                                            disabled={selected.count <= 1}
-                                            className=""
-                                        // onClick={() => handleOption("adult", "d")}
+                                           disabled={options.adult <= 1}
+                                           className=""
+                                           onClick={() => handleOption("quantity", "d")}
                                         >
                                             <FaMinus></FaMinus>
                                         </button>
-                                        <span className=""></span>
+                                        <span className="">{options.quantity}</span>
 
                                         <button
                                             className=""
-                                        // onClick={() => handleOption("adult", "i")}
+                                            onClick={() => handleOption("quantity", "i")}
                                         >
                                             <FaPlus></FaPlus>
                                         </button>
