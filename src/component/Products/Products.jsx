@@ -1,38 +1,53 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Products.css'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
+import CartContext from '../../context/cart/CartContext';
+import useProducts from '../../hooks/useProducts';
 
-const Products = ({ products,handleSelect,setQuantity,quantity}) => {
-    const handleQuantity = (e) => {
-        // [...quantity,{quantity:e.target.value, id:product.id}]
-    const incQuantity = quantity.find((item) => item.id === e.id)
-    console.log(incQuantity);
-    console.log(e);
-}
-console.log(quantity);
-    
+const Products = () => {
+    const [products] = useProducts('/products.json')
+    const {addToCart} = useContext(CartContext)
+
     return (
-        <>
-            {
-                products?.map(product => <tr key={product.id}>
-                    <td>
-                        <img width={70} src={product.img} alt="" />
-                    </td>
-                    <td>{product.name}</td>
-                    <td>{product.color}</td>
-                    <td>{product.stock}</td>
-                    <td>{product.category}</td>
-                    <td>{product.size}</td>
-                    <td>{product.price}</td>
-                    <td>
-                        <div className='check-cart'>
-                            <input onChange={(e)=>handleQuantity({value:e.target.value,id:product.id})} type="number" name="" id="" />
-                            <AiOutlineShoppingCart className='cart' />
-                            <input onChange={handleSelect} value={product.id} type="checkbox" />
-                        </div>
-                    </td>
-                </tr>)
-            }
+        <><div className="product-container">
+            <table className="">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>color</th>
+                        <th>Stock</th>
+                        <th>Category</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th style={{ textAlign: 'right', paddingRight: '15px' }}>Buy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        products?.map(product => <tr key={product.id}>
+                            <td>
+                                <img width={70} src={product.img} alt="" />
+                            </td>
+                            <td>{product.name}</td>
+                            <td>{product.color}</td>
+                            <td>{product.stock}</td>
+                            <td>{product.category}</td>
+                            <td>{product.size}</td>
+                            <td>{product.price}</td>
+                            <td>
+                                <div className='check-cart'>
+                                    <input type="number" name="" id="" />
+                                    <AiOutlineShoppingCart className='cart' />
+                                   <button onClick={()=>addToCart(product)}>add to cart</button>
+                                </div>
+                            </td>
+                        </tr>)
+                    }
+                </tbody>
+            </table>
+        </div>
+
         </>
     );
 };

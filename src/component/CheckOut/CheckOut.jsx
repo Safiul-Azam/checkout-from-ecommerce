@@ -1,27 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './CheckOut.css'
-import { FaMinus, FaPlus } from 'react-icons/fa'
+import { IoMdClose } from 'react-icons/io'
+import CartContext from '../../context/cart/CartContext';
 const CheckOut = () => {
-    const location = useLocation()
-    const [products, setProducts] = useState(location.state.products)
-    const [selected, setSelected] = useState(location.state.selected)
-    const productsBySelected = products.filter(product => selected.includes(product.id))
-    const [options, setOptions] = useState({
-        quantity:1,
-    });
-    const handleOption = (name, operation) => {
-        setOptions((prev) => {
-            return {
-                ...prev,
-                [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
-            };
-        });
-    };
+    const { cartItems, removeItem } = useContext(CartContext)
+    console.log(removeItem);
 
     return (
         <div className='home-container check-out-container'>
             <div className="product-container">
+
                 <table className="">
                     <thead>
                         <tr>
@@ -33,14 +22,15 @@ const CheckOut = () => {
                     </thead>
                     <tbody>
                         {
-                            productsBySelected?.map(product => <tr>
+                            cartItems?.map(product => <tr>
+                                <td><IoMdClose style={{cursor:'pointer'}} onClick={()=>removeItem(product.id)} /></td>
                                 <td>
                                     <img width={70} src={product.img} alt="" />
                                 </td>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>
-                                    <div className="">
+                                    {/* <div className="">
                                         <button
                                            disabled={options.adult <= 1}
                                            className=""
@@ -56,7 +46,7 @@ const CheckOut = () => {
                                         >
                                             <FaPlus></FaPlus>
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </td>
 
                             </tr>)
@@ -67,14 +57,16 @@ const CheckOut = () => {
             <div className='checkout-cart'>
                 <h2>Cart Total</h2>
                 <div className='cart-item'>
-                    <p>sub total</p>
-                    <p>$ 120</p>
+                    <p>Sub Total</p>
+                    <p>{cartItems.reduce((amount, item) => item.price + amount, 0)}</p>
                 </div>
                 <hr />
                 <div className='cart-item'>
                     <p>Total</p>
-                    <p>${10 + 25}</p>
+                    <p>{cartItems.reduce((amount, item) => item.price + amount, 0)}</p>
                 </div>
+                <button className='proceed-btn'>Proceed to checkout</button>
+
             </div>
         </div>
     )

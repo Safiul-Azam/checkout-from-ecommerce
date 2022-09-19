@@ -14,3 +14,11 @@
     width: 25%;
     margin:  0 20px;
 }
+.proceed-btn{
+    background-color: rgba(53, 120, 221, 0.959);
+    color:white;
+    padding: 8px 30px;
+    border-radius: 30px;
+    border:none;  
+    text-transform: uppercase;
+}

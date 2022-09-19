@@ -1,21 +1,17 @@
-import React from 'react';
+import { useState } from 'react';
+
+import { useContext } from 'react';
+import CartContext from '../../context/cart/CartContext';
 import './navbar.css'
 import { IoRefresh } from 'react-icons/io5'
-import { useState } from 'react';
-import { useEffect } from 'react';
-import Products from '../Products/Products';
+import useProducts from '../../hooks/useProducts';
 import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [size, setSize] = useState(undefined)
     const [category, setCategory] = useState(undefined)
-    const [products, setProducts] = useState([])
-    const [quantity, setQuantity] = useState([])
-    useEffect(() => {
-        fetch(`/products.json`)
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
+    const navigate =useNavigate()
+    const [products] = useProducts('/products.json')
     const productsBySize = products.filter(product => product.size === size && product.category === category)
     const handleReset = (e) => {
         e.preventDefault()
@@ -26,20 +22,21 @@ const Navbar = () => {
     //     setQuantity(e.target.value)
     // }
 
-    console.log(quantity);
-    const navigate = useNavigate()
+    // console.log(quantity);
+    // const navigate = useNavigate()
    
-    const [selected, setSelected] = useState([])
+    // const [selected, setSelected] = useState([])
 
-    const handleSelect = (e) => {
-        const checked = e.target.checked
-        const value = e.target.value
-        setSelected(checked ? [...selected, {value, quantity}] : selected.filter(item => item !== value))
-    }
+    // const handleSelect = (e) => {
+    //     const checked = e.target.checked
+    //     const value = e.target.value
+    //     setSelected(checked ? [...selected, {value, quantity}] : selected.filter(item => item !== value))
+    // }
     const handleClick = () => {
-        navigate('/checkout', { state: { products, selected } })
+        navigate('/checkout', { state: { products } })
     }
-    // console.log(selected)
+    const {cartItems} = useContext(CartContext)
+    console.log(cartItems);
     return (
         <div>
             <nav className='nav-container'>
@@ -69,29 +66,9 @@ const Navbar = () => {
                         <input type="text" placeholder="Search" className="" />
                     </div>
                     <button onClick={handleClick}>Add To Cart</button>
+                    <span>{cartItems.length > 0 && <p>{cartItems.length}</p>}</span>
                 </div>
             </nav>
-            <div className="product-container">
-                <table className="">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>color</th>
-                            <th>Stock</th>
-                            <th>Category</th>
-                            <th>Size</th>
-                            <th>Price</th>
-                            <th style={{ textAlign: 'right', paddingRight: '15px' }}>Buy</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            <Products products={productsBySize.length > 0 ? productsBySize : products} handleSelect={handleSelect} setQuantity={setQuantity} quantity={quantity}></Products>
-                        }
-                    </tbody>
-                </table>
-            </div>
         </div>
     );
 };
