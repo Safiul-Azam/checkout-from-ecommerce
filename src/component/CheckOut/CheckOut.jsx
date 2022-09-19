@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './CheckOut.css'
 import { IoMdClose } from 'react-icons/io'
+import { FaMinus, FaPlus } from 'react-icons/fa'
 import CartContext from '../../context/cart/CartContext';
 const CheckOut = () => {
-    const { cartItems, removeItem } = useContext(CartContext)
-    console.log(removeItem);
+    const { cartItems } = useContext(CartContext)
+    // console.log(removeItem);
+    const {removeItem} = useContext(CartContext)
 
     return (
         <div className='home-container check-out-container'>
@@ -14,6 +16,7 @@ const CheckOut = () => {
                 <table className="">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Image</th>
                             <th>Product Name</th>
                             <th>Price</th>
@@ -30,7 +33,7 @@ const CheckOut = () => {
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>
-                                    {/* <div className="">
+                                    <div className="">
                                         <button
                                            disabled={options.adult <= 1}
                                            className=""
@@ -46,7 +49,7 @@ const CheckOut = () => {
                                         >
                                             <FaPlus></FaPlus>
                                         </button>
-                                    </div> */}
+                                    </div>
                                 </td>
 
                             </tr>)

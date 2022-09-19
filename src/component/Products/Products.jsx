@@ -8,6 +8,8 @@ const Products = () => {
     const [products] = useProducts('/products.json')
     const {addToCart} = useContext(CartContext)
 
+    // const productsBySize = products.filter(product => product.size === size && product.category === category)
+
     return (
         <><div className="product-container">
             <table className="">

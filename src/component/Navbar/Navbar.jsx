@@ -11,8 +11,7 @@ const Navbar = () => {
     const [size, setSize] = useState(undefined)
     const [category, setCategory] = useState(undefined)
     const navigate =useNavigate()
-    const [products] = useProducts('/products.json')
-    const productsBySize = products.filter(product => product.size === size && product.category === category)
+    
     const handleReset = (e) => {
         e.preventDefault()
         setSize('size')
