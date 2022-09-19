@@ -6,10 +6,9 @@ import CartContext from '../../context/cart/CartContext';
 import { useNavigate } from 'react-router-dom';
 const CheckOut = () => {
     const { cartItems } = useContext(CartContext)
-    // console.log(removeItem);
     const { removeItem } = useContext(CartContext)
     const navigate = useNavigate()
-    if(cartItems.length === 0){
+    if (cartItems.length === 0) {
         navigate('/')
     }
     return (
@@ -36,23 +35,11 @@ const CheckOut = () => {
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>
-                                    {/* <div className="">
-                                        <button
-                                           disabled={options.adult <= 1}
-                                           className=""
-                                           onClick={() => handleOption("quantity", "d")}
-                                        >
-                                            <FaMinus></FaMinus>
-                                        </button>
-                                        <span className="">{options.quantity}</span>
-
-                                        <button
-                                            className=""
-                                            onClick={() => handleOption("quantity", "i")}
-                                        >
-                                            <FaPlus></FaPlus>
-                                        </button>
-                                    </div> */}
+                                    <div className="">
+                                        <button className=""><FaMinus /></button>
+                                        <span className="">{product.quantity}</span>
+                                        <button className=""><FaPlus /></button>
+                                    </div>
                                 </td>
 
                             </tr>)

@@ -4,9 +4,8 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import CartContext from '../../context/cart/CartContext';
 
 const Products = ({ products }) => {
-
     const { addToCart } = useContext(CartContext)
-
+    
     return (
         <><div className="product-container">
             <table className="">
@@ -36,9 +35,9 @@ const Products = ({ products }) => {
                             <td>{product.price}</td>
                             <td>
                                 <div className='check-cart'>
-                                    <input  type="number" name="" id="" />
+                                    <input type="number" name="" id="" />
                                     <AiOutlineShoppingCart className='cart' />
-                                    <button onClick={() => addToCart(product)}>add to cart</button>
+                                    <input onChange={()=>addToCart(product)} type="checkbox" name="" id="" />
                                 </div>
                             </td>
                         </tr>)
