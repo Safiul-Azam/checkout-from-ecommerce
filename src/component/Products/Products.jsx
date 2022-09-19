@@ -1,14 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import './Products.css'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import CartContext from '../../context/cart/CartContext';
-import useProducts from '../../hooks/useProducts';
 
-const Products = () => {
-    const [products] = useProducts('/products.json')
-    const {addToCart} = useContext(CartContext)
+const Products = ({ products }) => {
 
-    // const productsBySize = products.filter(product => product.size === size && product.category === category)
+    const { addToCart } = useContext(CartContext)
 
     return (
         <><div className="product-container">
@@ -39,9 +36,9 @@ const Products = () => {
                             <td>{product.price}</td>
                             <td>
                                 <div className='check-cart'>
-                                    <input type="number" name="" id="" />
+                                    <input  type="number" name="" id="" />
                                     <AiOutlineShoppingCart className='cart' />
-                                   <button onClick={()=>addToCart(product)}>add to cart</button>
+                                    <button onClick={() => addToCart(product)}>add to cart</button>
                                 </div>
                             </td>
                         </tr>)

@@ -6,11 +6,15 @@ import './navbar.css'
 import { IoRefresh } from 'react-icons/io5'
 import useProducts from '../../hooks/useProducts';
 import { useNavigate } from 'react-router-dom';
+import Products from '../Products/Products';
 
 const Navbar = () => {
     const [size, setSize] = useState(undefined)
     const [category, setCategory] = useState(undefined)
     const navigate =useNavigate()
+    const [products] = useProducts('/products.json')
+    const productsBySize = products.filter(product => product.size === size && product.category === category)
+
     
     const handleReset = (e) => {
         e.preventDefault()
@@ -31,10 +35,10 @@ const Navbar = () => {
     //     const value = e.target.value
     //     setSelected(checked ? [...selected, {value, quantity}] : selected.filter(item => item !== value))
     // }
-    const handleClick = () => {
-        navigate('/checkout', { state: { products } })
-    }
     const {cartItems} = useContext(CartContext)
+    const handleClick = () => {
+        navigate('/checkout', { state: { cartItems } })
+    }
     console.log(cartItems);
     return (
         <div>
@@ -68,6 +72,7 @@ const Navbar = () => {
                     <span>{cartItems.length > 0 && <p>{cartItems.length}</p>}</span>
                 </div>
             </nav>
+            {<Products products={productsBySize.length > 0 ? productsBySize: products } ></Products>}
         </div>
     );
 };

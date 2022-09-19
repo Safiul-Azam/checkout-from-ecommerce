@@ -1,14 +1,17 @@
-import React, { useContext, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
 import './CheckOut.css'
 import { IoMdClose } from 'react-icons/io'
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import CartContext from '../../context/cart/CartContext';
+import { useNavigate } from 'react-router-dom';
 const CheckOut = () => {
     const { cartItems } = useContext(CartContext)
     // console.log(removeItem);
-    const {removeItem} = useContext(CartContext)
-
+    const { removeItem } = useContext(CartContext)
+    const navigate = useNavigate()
+    if(cartItems.length === 0){
+        navigate('/')
+    }
     return (
         <div className='home-container check-out-container'>
             <div className="product-container">
@@ -26,14 +29,14 @@ const CheckOut = () => {
                     <tbody>
                         {
                             cartItems?.map(product => <tr>
-                                <td><IoMdClose style={{cursor:'pointer'}} onClick={()=>removeItem(product.id)} /></td>
+                                <td><IoMdClose style={{ cursor: 'pointer' }} onClick={() => removeItem(product.id)} /></td>
                                 <td>
                                     <img width={70} src={product.img} alt="" />
                                 </td>
                                 <td>{product.name}</td>
                                 <td>{product.price}</td>
                                 <td>
-                                    <div className="">
+                                    {/* <div className="">
                                         <button
                                            disabled={options.adult <= 1}
                                            className=""
@@ -49,7 +52,7 @@ const CheckOut = () => {
                                         >
                                             <FaPlus></FaPlus>
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </td>
 
                             </tr>)
